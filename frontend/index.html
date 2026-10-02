@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tbonk Tasks</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <div>
+        <p class="eyebrow">TBONK / TASKS</p>
+        <h1>Мои задачи</h1>
+        <p class="muted">Небольшой клиент-серверный трекер на PostgreSQL.</p>
+      </div>
+      <button id="new-task" class="primary">+ Новая задача</button>
+    </header>
+    <section class="toolbar">
+      <label>Показывать:
+        <select id="filter">
+          <option value="">Все задачи</option>
+          <option value="todo">К выполнению</option>
+          <option value="in_progress">В работе</option>
+          <option value="done">Готово</option>
+        </select>
+      </label>
+      <span id="count" class="muted"></span>
+    </section>
+    <section id="tasks" class="tasks"></section>
+    <p id="message" class="message"></p>
+  </main>
+
+  <dialog id="task-dialog">
+    <form id="task-form" method="dialog">
+      <h2 id="dialog-title">Новая задача</h2>
+      <input type="hidden" id="task-id">
+      <label>Название<input id="title" maxlength="160" required></label>
+      <label>Описание<textarea id="description" rows="4"></textarea></label>
+      <label>Статус<select id="status">
+        <option value="todo">К выполнению</option>
+        <option value="in_progress">В работе</option>
+        <option value="done">Готово</option>
+      </select></label>
+      <div class="actions"><button type="button" id="cancel">Отмена</button><button class="primary">Сохранить</button></div>
+    </form>
+  </dialog>
+  <script src="/app.js"></script>
+</body>
+</html>
