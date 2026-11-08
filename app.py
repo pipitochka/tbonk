@@ -55,11 +55,16 @@ def find_task(task_id: int):
         ).fetchone()
 
 
+@app.get("/live")
+def live():
+    return jsonify({"status": "ok"})
+
+
 @app.get("/health")
 def health():
     try:
         with get_connection() as connection:
-            connection.execute("SELECT 1")
+            connection.execute("SELECT 1 FROM tasks LIMIT 1")
         return jsonify({"status": "ok", "database": "ok"})
     except psycopg.Error:
         return jsonify({"status": "error", "database": "unavailable"}), 503
