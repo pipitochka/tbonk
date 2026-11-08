@@ -1,0 +1,317 @@
+{
+  "captured_at": 1794140786.617752,
+  "queries": {
+    "availability": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794140786,
+              "1"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "60",
+        "executionTimeMsec": 0
+      }
+    },
+    "latency": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794140786,
+              "1"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "40",
+        "executionTimeMsec": 0
+      }
+    },
+    "create_success": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794140786,
+              "1"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "12",
+        "executionTimeMsec": 0
+      }
+    },
+    "probe": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794140786,
+              "0.9375"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "3",
+        "executionTimeMsec": 0
+      }
+    },
+    "rss": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "process_resident_memory_bytes",
+              "app": "tbonk",
+              "instance": "10.244.0.23:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-547c57fcff-54hsl"
+            },
+            "value": [
+              1794140786,
+              "184188928"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "process_resident_memory_bytes",
+              "app": "tbonk",
+              "instance": "10.244.0.24:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-547c57fcff-kt68h"
+            },
+            "value": [
+              1794140786,
+              "183963648"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "4",
+        "executionTimeMsec": 0
+      }
+    },
+    "cpu": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "app": "tbonk",
+              "instance": "10.244.0.14:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-84f597bffc-42jmw"
+            },
+            "value": [
+              1794140786,
+              "0.002666666666666667"
+            ]
+          },
+          {
+            "metric": {
+              "app": "tbonk",
+              "instance": "10.244.0.15:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-84f597bffc-h5zxz"
+            },
+            "value": [
+              1794140786,
+              "0.002666666666666667"
+            ]
+          },
+          {
+            "metric": {
+              "app": "tbonk",
+              "instance": "10.244.0.23:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-547c57fcff-54hsl"
+            },
+            "value": [
+              1794140786,
+              "0.002"
+            ]
+          },
+          {
+            "metric": {
+              "app": "tbonk",
+              "instance": "10.244.0.24:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-547c57fcff-kt68h"
+            },
+            "value": [
+              1794140786,
+              "0.0021666666666666666"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "4",
+        "executionTimeMsec": 0
+      }
+    },
+    "targets": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "tbonk-prober",
+              "instance": "10.244.0.16:9115",
+              "job": "kubernetes-pods",
+              "namespace": "monitoring",
+              "pod": "tbonk-prober-56fbd9b87b-vqtfw"
+            },
+            "value": [
+              1794140786,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "postgres",
+              "instance": "10.244.0.12:9187",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "postgres-0"
+            },
+            "value": [
+              1794140786,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "tbonk",
+              "instance": "10.244.0.23:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-547c57fcff-54hsl"
+            },
+            "value": [
+              1794140786,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "tbonk",
+              "instance": "10.244.0.24:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-547c57fcff-kt68h"
+            },
+            "value": [
+              1794140786,
+              "1"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "6",
+        "executionTimeMsec": 0
+      }
+    }
+  },
+  "alerts": {
+    "status": "success",
+    "data": {
+      "alerts": [
+        {
+          "state": "pending",
+          "name": "TbonkHighPythonMemory",
+          "value": "184188930",
+          "labels": {
+            "alertgroup": "tbonk-python",
+            "alertname": "TbonkHighPythonMemory",
+            "app": "tbonk",
+            "instance": "10.244.0.23:9100",
+            "job": "kubernetes-pods",
+            "namespace": "tbonk",
+            "pod": "tbonk-547c57fcff-54hsl",
+            "service": "tbonk",
+            "severity": "warning"
+          },
+          "annotations": {
+            "description": "Check growth and leaks; this worker has a 256MiB container limit shared with Gunicorn. Demo recovery is demo-mode.sh off.",
+            "summary": "Python worker RSS exceeds 100MiB"
+          },
+          "activeAt": "2026-11-08T12:25:00Z",
+          "id": "2978288335373412842",
+          "rule_id": "9987248360968713179",
+          "group_id": "10117655539475121390",
+          "expression": "process_resident_memory_bytes{app=\"tbonk\"} > 100 * 1024 * 1024",
+          "source": "http://vmalert-764577dc-jxnbh:8880/vmalert/alert?group_id=10117655539475121390&alert_id=2978288335373412842",
+          "restored": false,
+          "stabilizing": false
+        },
+        {
+          "state": "pending",
+          "name": "TbonkHighPythonMemory",
+          "value": "183963650",
+          "labels": {
+            "alertgroup": "tbonk-python",
+            "alertname": "TbonkHighPythonMemory",
+            "app": "tbonk",
+            "instance": "10.244.0.24:9100",
+            "job": "kubernetes-pods",
+            "namespace": "tbonk",
+            "pod": "tbonk-547c57fcff-kt68h",
+            "service": "tbonk",
+            "severity": "warning"
+          },
+          "annotations": {
+            "description": "Check growth and leaks; this worker has a 256MiB container limit shared with Gunicorn. Demo recovery is demo-mode.sh off.",
+            "summary": "Python worker RSS exceeds 100MiB"
+          },
+          "activeAt": "2026-11-08T12:25:00Z",
+          "id": "9186741833139694270",
+          "rule_id": "9987248360968713179",
+          "group_id": "10117655539475121390",
+          "expression": "process_resident_memory_bytes{app=\"tbonk\"} > 100 * 1024 * 1024",
+          "source": "http://vmalert-764577dc-jxnbh:8880/vmalert/alert?group_id=10117655539475121390&alert_id=9186741833139694270",
+          "restored": false,
+          "stabilizing": false
+        }
+      ]
+    }
+  },
+  "notifications": []
+}

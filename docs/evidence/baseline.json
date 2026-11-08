@@ -1,0 +1,234 @@
+{
+  "captured_at": 1794140656.687128,
+  "queries": {
+    "availability": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794140656,
+              "1"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "30",
+        "executionTimeMsec": 0
+      }
+    },
+    "latency": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794140656,
+              "1"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "20",
+        "executionTimeMsec": 0
+      }
+    },
+    "create_success": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794140656,
+              "1"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "6",
+        "executionTimeMsec": 0
+      }
+    },
+    "probe": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794140656,
+              "0.8571428571428571"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "3",
+        "executionTimeMsec": 0
+      }
+    },
+    "rss": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "process_resident_memory_bytes",
+              "app": "tbonk",
+              "instance": "10.244.0.14:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-84f597bffc-42jmw"
+            },
+            "value": [
+              1794140656,
+              "50012160"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "process_resident_memory_bytes",
+              "app": "tbonk",
+              "instance": "10.244.0.15:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-84f597bffc-h5zxz"
+            },
+            "value": [
+              1794140656,
+              "49819648"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "2",
+        "executionTimeMsec": 0
+      }
+    },
+    "cpu": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "app": "tbonk",
+              "instance": "10.244.0.14:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-84f597bffc-42jmw"
+            },
+            "value": [
+              1794140656,
+              "0.0024444444444444444"
+            ]
+          },
+          {
+            "metric": {
+              "app": "tbonk",
+              "instance": "10.244.0.15:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-84f597bffc-h5zxz"
+            },
+            "value": [
+              1794140656,
+              "0.002444444444444444"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "2",
+        "executionTimeMsec": 0
+      }
+    },
+    "targets": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "tbonk-prober",
+              "instance": "10.244.0.16:9115",
+              "job": "kubernetes-pods",
+              "namespace": "monitoring",
+              "pod": "tbonk-prober-56fbd9b87b-vqtfw"
+            },
+            "value": [
+              1794140656,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "postgres",
+              "instance": "10.244.0.12:9187",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "postgres-0"
+            },
+            "value": [
+              1794140656,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "tbonk",
+              "instance": "10.244.0.14:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-84f597bffc-42jmw"
+            },
+            "value": [
+              1794140656,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "tbonk",
+              "instance": "10.244.0.15:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-84f597bffc-h5zxz"
+            },
+            "value": [
+              1794140656,
+              "1"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "4",
+        "executionTimeMsec": 0
+      }
+    }
+  },
+  "alerts": {
+    "status": "success",
+    "data": {
+      "alerts": []
+    }
+  },
+  "notifications": []
+}

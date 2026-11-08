@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: prober
-          image: tbonk-tasks:hw5
+          image: tbonk-tasks:hw6
           imagePullPolicy: Never
           command: ["python", "-m", "backend.prober"]
           env:

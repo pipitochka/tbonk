@@ -37,6 +37,16 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r backend/requirements.txt
       - name: Check Python syntax
-        run: python -m compileall -q backend
+        run: python -m compileall -q backend scripts
       - name: Run integration tests
         run: python -m pytest -vv --tb=long
+      - name: Test alert thresholds and hold times
+        run: >-
+          docker run --rm -v "$PWD/k8s/alerts:/config:ro"
+          --entrypoint /bin/promtool prom/prometheus:v3.2.1
+          test rules /config/rules.test.yaml
+      - name: Validate Alertmanager configuration
+        run: >-
+          docker run --rm -v "$PWD/k8s/alerts:/config:ro"
+          --entrypoint /bin/amtool prom/alertmanager:v0.28.1
+          check-config /config/alertmanager.yaml

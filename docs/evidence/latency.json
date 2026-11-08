@@ -1,0 +1,544 @@
+{
+  "captured_at": 1794141230.513644,
+  "queries": {
+    "availability": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794141230,
+              "0.7953228063162103"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "120",
+        "executionTimeMsec": 0
+      }
+    },
+    "latency": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794141230,
+              "0.7720532797185222"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "80",
+        "executionTimeMsec": 0
+      }
+    },
+    "create_success": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794141230,
+              "0.7845786963434023"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "24",
+        "executionTimeMsec": 0
+      }
+    },
+    "probe": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794141230,
+              "0.75"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "3",
+        "executionTimeMsec": 0
+      }
+    },
+    "rss": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "process_resident_memory_bytes",
+              "app": "tbonk",
+              "instance": "10.244.0.28:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-587dc758b6-zkpjp"
+            },
+            "value": [
+              1794141230,
+              "50794496"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "process_resident_memory_bytes",
+              "app": "tbonk",
+              "instance": "10.244.0.29:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-587dc758b6-r9vck"
+            },
+            "value": [
+              1794141230,
+              "50319360"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "8",
+        "executionTimeMsec": 0
+      }
+    },
+    "cpu": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "app": "tbonk",
+              "instance": "10.244.0.28:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-587dc758b6-zkpjp"
+            },
+            "value": [
+              1794141230,
+              "0.0185"
+            ]
+          },
+          {
+            "metric": {
+              "app": "tbonk",
+              "instance": "10.244.0.29:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-587dc758b6-r9vck"
+            },
+            "value": [
+              1794141230,
+              "0.0175"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "8",
+        "executionTimeMsec": 0
+      }
+    },
+    "targets": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "tbonk-prober",
+              "instance": "10.244.0.16:9115",
+              "job": "kubernetes-pods",
+              "namespace": "monitoring",
+              "pod": "tbonk-prober-56fbd9b87b-vqtfw"
+            },
+            "value": [
+              1794141230,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "postgres",
+              "instance": "10.244.0.12:9187",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "postgres-0"
+            },
+            "value": [
+              1794141230,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "tbonk",
+              "instance": "10.244.0.28:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-587dc758b6-zkpjp"
+            },
+            "value": [
+              1794141230,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "app": "tbonk",
+              "instance": "10.244.0.29:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-587dc758b6-r9vck"
+            },
+            "value": [
+              1794141230,
+              "1"
+            ]
+          }
+        ]
+      },
+      "stats": {
+        "seriesFetched": "10",
+        "executionTimeMsec": 0
+      }
+    }
+  },
+  "alerts": {
+    "status": "success",
+    "data": {
+      "alerts": [
+        {
+          "state": "firing",
+          "name": "TbonkSlowOperations",
+          "value": "0",
+          "labels": {
+            "alertgroup": "tbonk-service",
+            "alertname": "TbonkSlowOperations",
+            "service": "tbonk",
+            "severity": "warning"
+          },
+          "annotations": {
+            "description": "Check PostgreSQL latency, Python CPU and request rate. Demo recovery is demo-mode.sh off.",
+            "summary": "Fewer than 95% of successful task operations finish in 500ms"
+          },
+          "activeAt": "2026-11-08T12:30:30Z",
+          "id": "14612400187482381944",
+          "rule_id": "6937872239980304184",
+          "group_id": "931769012403553627",
+          "expression": "(sum(rate(tbonk_task_operation_duration_seconds_bucket{app=\"tbonk\",outcome=\"success\",le=\"0.5\"}[2m]))\n/ sum(rate(tbonk_task_operation_duration_seconds_count{app=\"tbonk\",outcome=\"success\"}[2m])) < 0.95)\nand (sum(rate(tbonk_task_operation_duration_seconds_count{app=\"tbonk\",outcome=\"success\"}[2m])) > 0.1)\n",
+          "source": "http://vmalert-764577dc-jxnbh:8880/vmalert/alert?group_id=931769012403553627&alert_id=14612400187482381944",
+          "restored": false,
+          "stabilizing": false
+        }
+      ]
+    }
+  },
+  "notifications": [
+    {
+      "payload": {
+        "alerts": [
+          {
+            "annotations": {
+              "description": "Check application error logs and PostgreSQL availability. Demo recovery is demo-mode.sh off.",
+              "summary": "More than 5% of valid task operations fail"
+            },
+            "endsAt": "2026-11-08T12:32:15Z",
+            "fingerprint": "8a32bbb88675a8ee",
+            "generatorURL": "http://vmalert-764577dc-jxnbh:8880/vmalert/alert?group_id=931769012403553627&alert_id=2785987979881684572",
+            "labels": {
+              "alertgroup": "tbonk-service",
+              "alertname": "TbonkHighErrorRate",
+              "service": "tbonk",
+              "severity": "critical"
+            },
+            "startsAt": "2026-11-08T12:28:15Z",
+            "status": "resolved"
+          }
+        ],
+        "commonAnnotations": {
+          "description": "Check application error logs and PostgreSQL availability. Demo recovery is demo-mode.sh off.",
+          "summary": "More than 5% of valid task operations fail"
+        },
+        "commonLabels": {
+          "alertgroup": "tbonk-service",
+          "alertname": "TbonkHighErrorRate",
+          "service": "tbonk",
+          "severity": "critical"
+        },
+        "externalURL": "http://alertmanager-7f48655dd9-55xnr:9093",
+        "groupKey": "{}:{alertname=\"TbonkHighErrorRate\", service=\"tbonk\", severity=\"critical\"}",
+        "groupLabels": {
+          "alertname": "TbonkHighErrorRate",
+          "service": "tbonk",
+          "severity": "critical"
+        },
+        "receiver": "local-inbox",
+        "status": "resolved",
+        "truncatedAlerts": 0,
+        "version": "4"
+      },
+      "received_at": "2026-11-08T12:32:45.830915+00:00"
+    },
+    {
+      "payload": {
+        "alerts": [
+          {
+            "annotations": {
+              "description": "Check PostgreSQL latency, Python CPU and request rate. Demo recovery is demo-mode.sh off.",
+              "summary": "Fewer than 95% of successful task operations finish in 500ms"
+            },
+            "endsAt": "0001-01-01T00:00:00Z",
+            "fingerprint": "d5fea76535f7c7f6",
+            "generatorURL": "http://vmalert-764577dc-jxnbh:8880/vmalert/alert?group_id=931769012403553627&alert_id=14612400187482381944",
+            "labels": {
+              "alertgroup": "tbonk-service",
+              "alertname": "TbonkSlowOperations",
+              "service": "tbonk",
+              "severity": "warning"
+            },
+            "startsAt": "2026-11-08T12:31:30Z",
+            "status": "firing"
+          }
+        ],
+        "commonAnnotations": {
+          "description": "Check PostgreSQL latency, Python CPU and request rate. Demo recovery is demo-mode.sh off.",
+          "summary": "Fewer than 95% of successful task operations finish in 500ms"
+        },
+        "commonLabels": {
+          "alertgroup": "tbonk-service",
+          "alertname": "TbonkSlowOperations",
+          "service": "tbonk",
+          "severity": "warning"
+        },
+        "externalURL": "http://alertmanager-7f48655dd9-55xnr:9093",
+        "groupKey": "{}:{alertname=\"TbonkSlowOperations\", service=\"tbonk\", severity=\"warning\"}",
+        "groupLabels": {
+          "alertname": "TbonkSlowOperations",
+          "service": "tbonk",
+          "severity": "warning"
+        },
+        "receiver": "local-inbox",
+        "status": "firing",
+        "truncatedAlerts": 0,
+        "version": "4"
+      },
+      "received_at": "2026-11-08T12:32:00.790656+00:00"
+    },
+    {
+      "payload": {
+        "alerts": [
+          {
+            "annotations": {
+              "description": "Check application error logs and PostgreSQL availability. Demo recovery is demo-mode.sh off.",
+              "summary": "More than 5% of valid task operations fail"
+            },
+            "endsAt": "0001-01-01T00:00:00Z",
+            "fingerprint": "8a32bbb88675a8ee",
+            "generatorURL": "http://vmalert-764577dc-jxnbh:8880/vmalert/alert?group_id=931769012403553627&alert_id=2785987979881684572",
+            "labels": {
+              "alertgroup": "tbonk-service",
+              "alertname": "TbonkHighErrorRate",
+              "service": "tbonk",
+              "severity": "critical"
+            },
+            "startsAt": "2026-11-08T12:28:15Z",
+            "status": "firing"
+          }
+        ],
+        "commonAnnotations": {
+          "description": "Check application error logs and PostgreSQL availability. Demo recovery is demo-mode.sh off.",
+          "summary": "More than 5% of valid task operations fail"
+        },
+        "commonLabels": {
+          "alertgroup": "tbonk-service",
+          "alertname": "TbonkHighErrorRate",
+          "service": "tbonk",
+          "severity": "critical"
+        },
+        "externalURL": "http://alertmanager-7f48655dd9-55xnr:9093",
+        "groupKey": "{}:{alertname=\"TbonkHighErrorRate\", service=\"tbonk\", severity=\"critical\"}",
+        "groupLabels": {
+          "alertname": "TbonkHighErrorRate",
+          "service": "tbonk",
+          "severity": "critical"
+        },
+        "receiver": "local-inbox",
+        "status": "firing",
+        "truncatedAlerts": 0,
+        "version": "4"
+      },
+      "received_at": "2026-11-08T12:28:45.888383+00:00"
+    },
+    {
+      "payload": {
+        "alerts": [
+          {
+            "annotations": {
+              "description": "Check growth and leaks; this worker has a 256MiB container limit shared with Gunicorn. Demo recovery is demo-mode.sh off.",
+              "summary": "Python worker RSS exceeds 100MiB"
+            },
+            "endsAt": "2026-11-08T12:27:00Z",
+            "fingerprint": "c6e7ec56aaf20bf7",
+            "generatorURL": "http://vmalert-764577dc-jxnbh:8880/vmalert/alert?group_id=10117655539475121390&alert_id=2978288335373412842",
+            "labels": {
+              "alertgroup": "tbonk-python",
+              "alertname": "TbonkHighPythonMemory",
+              "app": "tbonk",
+              "instance": "10.244.0.23:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-547c57fcff-54hsl",
+              "service": "tbonk",
+              "severity": "warning"
+            },
+            "startsAt": "2026-11-08T12:26:00Z",
+            "status": "resolved"
+          },
+          {
+            "annotations": {
+              "description": "Check growth and leaks; this worker has a 256MiB container limit shared with Gunicorn. Demo recovery is demo-mode.sh off.",
+              "summary": "Python worker RSS exceeds 100MiB"
+            },
+            "endsAt": "2026-11-08T12:26:45Z",
+            "fingerprint": "3e234b8464de48dd",
+            "generatorURL": "http://vmalert-764577dc-jxnbh:8880/vmalert/alert?group_id=10117655539475121390&alert_id=9186741833139694270",
+            "labels": {
+              "alertgroup": "tbonk-python",
+              "alertname": "TbonkHighPythonMemory",
+              "app": "tbonk",
+              "instance": "10.244.0.24:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-547c57fcff-kt68h",
+              "service": "tbonk",
+              "severity": "warning"
+            },
+            "startsAt": "2026-11-08T12:26:00Z",
+            "status": "resolved"
+          }
+        ],
+        "commonAnnotations": {
+          "description": "Check growth and leaks; this worker has a 256MiB container limit shared with Gunicorn. Demo recovery is demo-mode.sh off.",
+          "summary": "Python worker RSS exceeds 100MiB"
+        },
+        "commonLabels": {
+          "alertgroup": "tbonk-python",
+          "alertname": "TbonkHighPythonMemory",
+          "app": "tbonk",
+          "job": "kubernetes-pods",
+          "namespace": "tbonk",
+          "service": "tbonk",
+          "severity": "warning"
+        },
+        "externalURL": "http://alertmanager-7f48655dd9-55xnr:9093",
+        "groupKey": "{}:{alertname=\"TbonkHighPythonMemory\", service=\"tbonk\", severity=\"warning\"}",
+        "groupLabels": {
+          "alertname": "TbonkHighPythonMemory",
+          "service": "tbonk",
+          "severity": "warning"
+        },
+        "receiver": "local-inbox",
+        "status": "resolved",
+        "truncatedAlerts": 0,
+        "version": "4"
+      },
+      "received_at": "2026-11-08T12:27:38.350972+00:00"
+    },
+    {
+      "payload": {
+        "alerts": [
+          {
+            "annotations": {
+              "description": "Check growth and leaks; this worker has a 256MiB container limit shared with Gunicorn. Demo recovery is demo-mode.sh off.",
+              "summary": "Python worker RSS exceeds 100MiB"
+            },
+            "endsAt": "0001-01-01T00:00:00Z",
+            "fingerprint": "c6e7ec56aaf20bf7",
+            "generatorURL": "http://vmalert-764577dc-jxnbh:8880/vmalert/alert?group_id=10117655539475121390&alert_id=2978288335373412842",
+            "labels": {
+              "alertgroup": "tbonk-python",
+              "alertname": "TbonkHighPythonMemory",
+              "app": "tbonk",
+              "instance": "10.244.0.23:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-547c57fcff-54hsl",
+              "service": "tbonk",
+              "severity": "warning"
+            },
+            "startsAt": "2026-11-08T12:26:00Z",
+            "status": "firing"
+          },
+          {
+            "annotations": {
+              "description": "Check growth and leaks; this worker has a 256MiB container limit shared with Gunicorn. Demo recovery is demo-mode.sh off.",
+              "summary": "Python worker RSS exceeds 100MiB"
+            },
+            "endsAt": "0001-01-01T00:00:00Z",
+            "fingerprint": "3e234b8464de48dd",
+            "generatorURL": "http://vmalert-764577dc-jxnbh:8880/vmalert/alert?group_id=10117655539475121390&alert_id=9186741833139694270",
+            "labels": {
+              "alertgroup": "tbonk-python",
+              "alertname": "TbonkHighPythonMemory",
+              "app": "tbonk",
+              "instance": "10.244.0.24:9100",
+              "job": "kubernetes-pods",
+              "namespace": "tbonk",
+              "pod": "tbonk-547c57fcff-kt68h",
+              "service": "tbonk",
+              "severity": "warning"
+            },
+            "startsAt": "2026-11-08T12:26:00Z",
+            "status": "firing"
+          }
+        ],
+        "commonAnnotations": {
+          "description": "Check growth and leaks; this worker has a 256MiB container limit shared with Gunicorn. Demo recovery is demo-mode.sh off.",
+          "summary": "Python worker RSS exceeds 100MiB"
+        },
+        "commonLabels": {
+          "alertgroup": "tbonk-python",
+          "alertname": "TbonkHighPythonMemory",
+          "app": "tbonk",
+          "job": "kubernetes-pods",
+          "namespace": "tbonk",
+          "service": "tbonk",
+          "severity": "warning"
+        },
+        "externalURL": "http://alertmanager-7f48655dd9-55xnr:9093",
+        "groupKey": "{}:{alertname=\"TbonkHighPythonMemory\", service=\"tbonk\", severity=\"warning\"}",
+        "groupLabels": {
+          "alertname": "TbonkHighPythonMemory",
+          "service": "tbonk",
+          "severity": "warning"
+        },
+        "receiver": "local-inbox",
+        "status": "firing",
+        "truncatedAlerts": 0,
+        "version": "4"
+      },
+      "received_at": "2026-11-08T12:26:38.461729+00:00"
+    }
+  ]
+}

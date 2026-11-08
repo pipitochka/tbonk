@@ -1,0 +1,72 @@
+rule_files: [rules.yaml]
+evaluation_interval: 15s
+tests:
+  - name: errors must persist and require traffic
+    interval: 15s
+    input_series:
+      - series: 'tbonk_task_operations_total{app="tbonk",operation="create",outcome="success"}'
+        values: '0+90x24'
+      - series: 'tbonk_task_operations_total{app="tbonk",operation="create",outcome="server_error"}'
+        values: '0+10x24'
+    alert_rule_test:
+      - eval_time: 45s
+        alertname: TbonkHighErrorRate
+        exp_alerts: []
+      - eval_time: 3m
+        alertname: TbonkHighErrorRate
+        exp_alerts:
+          - exp_labels: {service: tbonk, severity: critical}
+            exp_annotations:
+              summary: More than 5% of valid task operations fail
+              description: Check application error logs and PostgreSQL availability. Demo recovery is demo-mode.sh off.
+  - name: no traffic is not an error rate alert
+    interval: 15s
+    input_series:
+      - series: 'tbonk_task_operations_total{app="tbonk",operation="create",outcome="success"}'
+        values: '0+0x24'
+      - series: 'tbonk_task_operations_total{app="tbonk",operation="create",outcome="server_error"}'
+        values: '0+0x24'
+    alert_rule_test:
+      - eval_time: 3m
+        alertname: TbonkHighErrorRate
+        exp_alerts: []
+  - name: slow successful operations breach the histogram SLO
+    interval: 15s
+    input_series:
+      - series: 'tbonk_task_operation_duration_seconds_bucket{app="tbonk",operation="list",outcome="success",le="0.5"}'
+        values: '0+80x24'
+      - series: 'tbonk_task_operation_duration_seconds_count{app="tbonk",operation="list",outcome="success"}'
+        values: '0+100x24'
+    alert_rule_test:
+      - eval_time: 3m
+        alertname: TbonkSlowOperations
+        exp_alerts:
+          - exp_labels: {service: tbonk, severity: warning}
+            exp_annotations:
+              summary: Fewer than 95% of successful task operations finish in 500ms
+              description: Check PostgreSQL latency, Python CPU and request rate. Demo recovery is demo-mode.sh off.
+  - name: Python runtime signals fire only after the hold time
+    interval: 15s
+    input_series:
+      - series: 'process_resident_memory_bytes{app="tbonk",pod="tbonk-test"}'
+        values: '157286400+0x24'
+      - series: 'process_cpu_seconds_total{app="tbonk",pod="tbonk-test"}'
+        values: '0+15x24'
+    alert_rule_test:
+      - eval_time: 30s
+        alertname: TbonkHighPythonMemory
+        exp_alerts: []
+      - eval_time: 3m
+        alertname: TbonkHighPythonMemory
+        exp_alerts:
+          - exp_labels: {app: tbonk, pod: tbonk-test, service: tbonk, severity: warning}
+            exp_annotations:
+              summary: Python worker RSS exceeds 100MiB
+              description: Check growth and leaks; this worker has a 256MiB container limit shared with Gunicorn. Demo recovery is demo-mode.sh off.
+      - eval_time: 3m
+        alertname: TbonkHighPythonCPU
+        exp_alerts:
+          - exp_labels: {app: tbonk, pod: tbonk-test, service: tbonk, severity: warning}
+            exp_annotations:
+              summary: Python worker uses more than 0.8 CPU cores
+              description: Check load, slow operations and profiling; the app container has a one-core CPU limit.

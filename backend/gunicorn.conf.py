@@ -14,4 +14,6 @@ logger_class = "backend.logging_config.JsonGunicornLogger"
 
 def post_worker_init(worker):
     from backend.metrics import start_metrics_server
+    from backend.demo import initialize_runtime_demo
     start_metrics_server()
+    initialize_runtime_demo()
