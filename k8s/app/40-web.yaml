@@ -25,15 +25,21 @@ spec:
     metadata:
       labels:
         app: tbonk
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9100"
+        prometheus.io/path: /metrics
     spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: web
-          image: tbonk-tasks:hw3
+          image: tbonk-tasks:hw4
           imagePullPolicy: Never
           ports:
             - name: http
               containerPort: 8000
+            - name: metrics
+              containerPort: 9100
           envFrom:
             - configMapRef:
                 name: tbonk-config

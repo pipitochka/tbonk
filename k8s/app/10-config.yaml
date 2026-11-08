@@ -11,7 +11,7 @@ data:
   POSTGRES_DB: tbonk
   POSTGRES_USER: tbonk
   PORT: "8000"
-  WEB_CONCURRENCY: "2"
+  WEB_CONCURRENCY: "1"
 ---
 # Disposable training credentials. Replace before using real data.
 apiVersion: v1
