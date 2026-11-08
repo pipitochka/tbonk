@@ -1,0 +1,16 @@
+NAME                       READY   STATUS      RESTARTS   AGE
+pod/postgres-0             1/1     Running     0          3m37s
+pod/tbonk-6c44d664-8qzlj   1/1     Running     0          3m33s
+pod/tbonk-6c44d664-lrbt7   1/1     Running     0          3m33s
+pod/tbonk-6c44d664-r8f8f   1/1     Running     0          4s
+pod/tbonk-init-db-f9h7w    0/1     Completed   0          3m36s
+
+NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/postgres   ClusterIP   None            <none>        5432/TCP   9m
+service/tbonk      ClusterIP   10.101.70.212   <none>        8000/TCP   3m33s
+
+NAME                                    STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-postgres-0   Bound    pvc-ad2be556-f1c9-41af-ac29-f982da8afac2   1Gi        RWO            standard       <unset>                 9m
+
+NAME                      STATUS     COMPLETIONS   DURATION   AGE
+job.batch/tbonk-init-db   Complete   1/1           3s         3m36s
