@@ -6,9 +6,7 @@ import pytest
 from app import app, init_db
 
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL", "postgresql://tbonk:tbonk@localhost:5432/tbonk"
-)
+DATABASE_URL = os.getenv("DATABASE_URL", "")
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -89,3 +87,15 @@ def test_validation_errors(client, payload, error):
 def test_missing_task_returns_not_found(client):
     assert client.get("/api/tasks/999999").status_code == 404
     assert client.delete("/api/tasks/999999").status_code == 404
+
+
+def test_title_length_boundary_for_create_and_update(client):
+    created = client.post("/api/tasks", json={"title": "я" * 160})
+    assert created.status_code == 201
+    task_id = created.json["id"]
+    assert client.put(f"/api/tasks/{task_id}", json={"title": "ю" * 160}).status_code == 200
+    for method, url in [(client.post, "/api/tasks"), (client.put, f"/api/tasks/{task_id}")]:
+        response = method(url, json={"title": "я" * 161})
+        assert response.status_code == 400
+        assert response.json["error"] == "Название задачи должно быть не длиннее 160 символов"
+    assert client.get(f"/api/tasks/{task_id}").json["title"] == "ю" * 160
