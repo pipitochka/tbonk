@@ -1,0 +1,32 @@
+data_dir: /var/lib/vector
+sources:
+  app_logs:
+    type: kubernetes_logs
+    self_node_name: "${VECTOR_SELF_NODE_NAME}"
+    extra_label_selector: "app=tbonk"
+    extra_field_selector: "metadata.namespace=tbonk"
+transforms:
+  json_logs:
+    type: remap
+    inputs: [app_logs]
+    drop_on_error: true
+    source: |
+      parsed = object!(parse_json!(.message))
+      . = merge(., parsed)
+sinks:
+  victorialogs:
+    type: http
+    inputs: [json_logs]
+    uri: "http://victorialogs.monitoring.svc.cluster.local:9428/insert/jsonline?_stream_fields=service.name,kubernetes.pod_name&_msg_field=message&_time_field=timestamp"
+    method: post
+    compression: gzip
+    encoding:
+      codec: json
+    framing:
+      method: newline_delimited
+    healthcheck:
+      enabled: false
+    buffer:
+      type: disk
+      max_size: 268435488
+      when_full: block

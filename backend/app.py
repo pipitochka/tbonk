@@ -1,12 +1,43 @@
 import os
+import logging
+import time
+import uuid
 from pathlib import Path
 
 import psycopg
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, g, jsonify, request, send_from_directory
+
+from backend.logging_config import configure_logging
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+configure_logging()
+logger = logging.getLogger("tbonk")
 app = Flask(__name__, static_folder=str(BASE_DIR / "frontend"), static_url_path="")
+
+
+@app.before_request
+def start_request():
+    g.started_at = time.perf_counter()
+    g.request_id = uuid.uuid4().hex
+
+
+@app.after_request
+def log_request(response):
+    response.headers["X-Request-ID"] = g.request_id
+    if request.path not in ("/live", "/health"):
+        level = logging.ERROR if response.status_code >= 500 else (
+            logging.WARNING if response.status_code >= 400 else logging.INFO
+        )
+        logger.log(level, "HTTP request completed", extra={"fields": {
+            "event": "http_request",
+            "request_id": g.request_id,
+            "http.method": request.method,
+            "http.route": request.url_rule.rule if request.url_rule else "unmatched",
+            "http.status_code": response.status_code,
+            "duration_ms": round((time.perf_counter() - g.started_at) * 1000, 3),
+        }})
+    return response
 
 
 def database_url() -> str:
@@ -151,6 +182,10 @@ def delete_task(task_id: int):
 
 @app.errorhandler(psycopg.Error)
 def database_error(_error):
+    logger.error("Database operation failed", extra={"fields": {
+        "event": "database_error", "exception.type": type(_error).__name__,
+        "request_id": g.get("request_id"),
+    }})
     return jsonify({"error": "Ошибка подключения к базе данных"}), 503
 
 
