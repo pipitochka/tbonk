@@ -1,5 +1,4 @@
 import os
-from datetime import datetime, timezone
 from pathlib import Path
 
 import psycopg
@@ -11,14 +10,12 @@ app = Flask(__name__, static_folder="frontend", static_url_path="")
 
 
 def database_url() -> str:
-    return os.getenv(
-        "DATABASE_URL",
-        "postgresql://tbonk:tbonk@localhost:5432/tbonk",
-    )
+    # Empty conninfo lets libpq read PGHOST, PGPORT, PGDATABASE, PGUSER, PGPASSWORD.
+    return os.getenv("DATABASE_URL", "")
 
 
 def get_connection():
-    return psycopg.connect(database_url())
+    return psycopg.connect(database_url(), connect_timeout=3)
 
 
 def init_db() -> None:
@@ -101,6 +98,8 @@ def create_task():
     status = payload.get("status", "todo")
     if not title:
         return jsonify({"error": "Название задачи обязательно"}), 400
+    if len(title) > 160:
+        return jsonify({"error": "Название задачи должно быть не длиннее 160 символов"}), 400
     if status not in ("todo", "in_progress", "done"):
         return jsonify({"error": "Недопустимый статус"}), 400
     with get_connection() as connection:
@@ -120,6 +119,8 @@ def update_task(task_id: int):
     status = payload.get("status", "todo")
     if not title:
         return jsonify({"error": "Название задачи обязательно"}), 400
+    if len(title) > 160:
+        return jsonify({"error": "Название задачи должно быть не длиннее 160 символов"}), 400
     if status not in ("todo", "in_progress", "done"):
         return jsonify({"error": "Недопустимый статус"}), 400
     with get_connection() as connection:
@@ -154,5 +155,4 @@ def index():
 
 
 if __name__ == "__main__":
-    init_db()
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "8000")))
