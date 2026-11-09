@@ -3,7 +3,7 @@ import importlib
 
 import pytest
 
-import app as application
+import backend.app as application
 
 
 def test_wsgi_import_does_not_initialize_database(monkeypatch):
@@ -11,7 +11,7 @@ def test_wsgi_import_does_not_initialize_database(monkeypatch):
         raise AssertionError("WSGI import must not connect to PostgreSQL")
 
     monkeypatch.setattr(application, "get_connection", forbidden)
-    import wsgi
+    from backend import wsgi
     importlib.reload(wsgi)
 
 

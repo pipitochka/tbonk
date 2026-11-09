@@ -16,7 +16,7 @@ spec:
         - name: init-db
           image: tbonk-tasks:hw2
           imagePullPolicy: Never
-          command: ["python", "manage.py", "init-db"]
+          command: ["python", "-m", "backend.manage", "init-db"]
           envFrom:
             - configMapRef:
                 name: tbonk-config

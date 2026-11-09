@@ -1,7 +1,7 @@
 """One-off administration commands, using the same image and DB configuration."""
 import argparse
 
-from app import init_db
+from backend.app import init_db
 
 
 def main():

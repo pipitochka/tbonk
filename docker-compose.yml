@@ -26,7 +26,7 @@ services:
       retries: 10
   init-db:
     <<: *app
-    command: ["python", "manage.py", "init-db"]
+    command: ["python", "-m", "backend.manage", "init-db"]
     restart: "no"
     depends_on:
       db:

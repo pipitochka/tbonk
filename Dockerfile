@@ -1,7 +1,7 @@
 FROM python:3.12-slim
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY backend/requirements.txt backend/requirements.txt
+RUN pip install --no-cache-dir -r backend/requirements.txt
 COPY . .
 EXPOSE 8000
-CMD ["gunicorn", "--config", "gunicorn.conf.py", "wsgi:app"]
+CMD ["gunicorn", "--config", "backend/gunicorn.conf.py", "backend.wsgi:app"]

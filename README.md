@@ -11,6 +11,15 @@ docker compose up --build
 
 Kubernetes: `bash scripts/deploy-app.sh` после сборки и загрузки образа по инструкции ДЗ‑2.
 
+## Структура проекта
+
+- `backend/` — Flask API, запуск Gunicorn, административные команды, зависимости и тесты Python.
+- `frontend/` — HTML, CSS и JavaScript; Flask отдаёт эти файлы вместе с API.
+- `k8s/`, `scripts/`, Dockerfile и Compose — сборка и развёртывание приложения.
+- `docs/` — объяснения и отчёты по домашним заданиям.
+
+Команды выполняются из корня проекта. Создание схемы вручную: `python -m backend.manage init-db` (нужны зависимости и настройки PostgreSQL). Зависимости: `python -m pip install -r backend/requirements.txt`; тесты: `python -m pytest`. При запуске через Compose или Kubernetes схема создаётся автоматически отдельным процессом.
+
 ## Домашние задания
 
 | ДЗ | Ветка | Материалы |
