@@ -3,7 +3,7 @@ import os
 import psycopg
 import pytest
 
-from app import app, init_db
+from backend.app import app, init_db
 
 
 DATABASE_URL = os.getenv("DATABASE_URL", "")

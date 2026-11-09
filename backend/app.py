@@ -5,8 +5,8 @@ import psycopg
 from flask import Flask, jsonify, request, send_from_directory
 
 
-BASE_DIR = Path(__file__).resolve().parent
-app = Flask(__name__, static_folder="frontend", static_url_path="")
+BASE_DIR = Path(__file__).resolve().parent.parent
+app = Flask(__name__, static_folder=str(BASE_DIR / "frontend"), static_url_path="")
 
 
 def database_url() -> str:
@@ -55,11 +55,16 @@ def find_task(task_id: int):
         ).fetchone()
 
 
+@app.get("/live")
+def live():
+    return jsonify({"status": "ok"})
+
+
 @app.get("/health")
 def health():
     try:
         with get_connection() as connection:
-            connection.execute("SELECT 1")
+            connection.execute("SELECT 1 FROM tasks LIMIT 1")
         return jsonify({"status": "ok", "database": "ok"})
     except psycopg.Error:
         return jsonify({"status": "error", "database": "unavailable"}), 503

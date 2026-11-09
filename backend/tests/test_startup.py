@@ -3,7 +3,7 @@ import importlib
 
 import pytest
 
-import app as application
+import backend.app as application
 
 
 def test_wsgi_import_does_not_initialize_database(monkeypatch):
@@ -11,7 +11,7 @@ def test_wsgi_import_does_not_initialize_database(monkeypatch):
         raise AssertionError("WSGI import must not connect to PostgreSQL")
 
     monkeypatch.setattr(application, "get_connection", forbidden)
-    import wsgi
+    from backend import wsgi
     importlib.reload(wsgi)
 
 
@@ -25,3 +25,11 @@ def test_long_title_is_rejected_before_database_access(monkeypatch, method, url)
         response = getattr(client, method)(url, json={"title": "я" * 161})
     assert response.status_code == 400
     assert "160" in response.json["error"]
+
+
+def test_liveness_does_not_require_database(monkeypatch):
+    def forbidden():
+        raise AssertionError("Liveness must not depend on PostgreSQL")
+
+    monkeypatch.setattr(application, "get_connection", forbidden)
+    assert application.app.test_client().get("/live").status_code == 200
