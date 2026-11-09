@@ -1,0 +1,56 @@
+rbac:
+  create: true
+server:
+  fullnameOverride: vm-single
+  retentionPeriod: 7d
+  persistentVolume:
+    enabled: true
+    size: 2Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: "1"
+      memory: 512Mi
+  scrape:
+    enabled: true
+    config:
+      global:
+        scrape_interval: 15s
+        scrape_timeout: 10s
+      scrape_configs:
+        - job_name: victoriametrics
+          static_configs:
+            - targets: ["localhost:8428"]
+        - job_name: kubernetes-pods
+          kubernetes_sd_configs:
+            - role: pod
+              namespaces:
+                names: [tbonk, monitoring]
+          relabel_configs:
+            - action: keep
+              source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+              regex: "true"
+            # role=pod emits one target per container port. Keep exactly one.
+            - action: keep
+              source_labels: [__meta_kubernetes_pod_container_port_name]
+              regex: metrics
+            - action: keep
+              source_labels: [__meta_kubernetes_pod_phase]
+              regex: Running
+            - action: replace
+              source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+              target_label: __metrics_path__
+              regex: (.+)
+            - action: replace
+              source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+              regex: '(.+):[0-9]+;([0-9]+)'
+              replacement: '${1}:${2}'
+              target_label: __address__
+            - source_labels: [__meta_kubernetes_namespace]
+              target_label: namespace
+            - source_labels: [__meta_kubernetes_pod_name]
+              target_label: pod
+            - source_labels: [__meta_kubernetes_pod_label_app]
+              target_label: app

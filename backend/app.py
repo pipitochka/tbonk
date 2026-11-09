@@ -8,6 +8,7 @@ import psycopg
 from flask import Flask, g, jsonify, request, send_from_directory
 
 from backend.logging_config import configure_logging
+from backend.metrics import COMPLETED, CREATED, DELETED, UPDATED, observe_request
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,6 +26,9 @@ def start_request():
 @app.after_request
 def log_request(response):
     response.headers["X-Request-ID"] = g.request_id
+    duration = time.perf_counter() - g.started_at
+    route = request.url_rule.rule if request.url_rule else "unmatched"
+    observe_request(request.method, route, request.endpoint, response.status_code, duration)
     if request.path not in ("/live", "/health"):
         level = logging.ERROR if response.status_code >= 500 else (
             logging.WARNING if response.status_code >= 400 else logging.INFO
@@ -33,9 +37,9 @@ def log_request(response):
             "event": "http_request",
             "request_id": g.request_id,
             "http.method": request.method,
-            "http.route": request.url_rule.rule if request.url_rule else "unmatched",
+            "http.route": route,
             "http.status_code": response.status_code,
-            "duration_ms": round((time.perf_counter() - g.started_at) * 1000, 3),
+            "duration_ms": round(duration * 1000, 3),
         }})
     return response
 
@@ -144,6 +148,9 @@ def create_task():
             "RETURNING id, title, description, status, created_at, updated_at",
             (title, description, status),
         ).fetchone()
+    CREATED.inc()
+    if status == "done":
+        COMPLETED.inc()
     return jsonify(serialize_task(row)), 201
 
 
@@ -160,6 +167,11 @@ def update_task(task_id: int):
     if status not in ("todo", "in_progress", "done"):
         return jsonify({"error": "Недопустимый статус"}), 400
     with get_connection() as connection:
+        previous = connection.execute(
+            "SELECT status FROM tasks WHERE id = %s FOR UPDATE", (task_id,)
+        ).fetchone()
+        if previous is None:
+            return jsonify({"error": "Задача не найдена"}), 404
         row = connection.execute(
             "UPDATE tasks SET title = %s, description = %s, status = %s, "
             "updated_at = NOW() WHERE id = %s "
@@ -168,6 +180,9 @@ def update_task(task_id: int):
         ).fetchone()
     if row is None:
         return jsonify({"error": "Задача не найдена"}), 404
+    UPDATED.inc()
+    if status == "done" and previous[0] != "done":
+        COMPLETED.inc()
     return jsonify(serialize_task(row))
 
 
@@ -177,6 +192,7 @@ def delete_task(task_id: int):
         result = connection.execute("DELETE FROM tasks WHERE id = %s", (task_id,))
     if result.rowcount == 0:
         return jsonify({"error": "Задача не найдена"}), 404
+    DELETED.inc()
     return "", 204
 
 

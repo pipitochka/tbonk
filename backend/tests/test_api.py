@@ -4,6 +4,7 @@ import psycopg
 import pytest
 
 from backend.app import app, init_db
+from backend.metrics import REGISTRY
 
 
 DATABASE_URL = os.getenv("DATABASE_URL", "")
@@ -99,3 +100,19 @@ def test_title_length_boundary_for_create_and_update(client):
         assert response.status_code == 400
         assert response.json["error"] == "Название задачи должно быть не длиннее 160 символов"
     assert client.get(f"/api/tasks/{task_id}").json["title"] == "ю" * 160
+
+
+def test_business_counters_only_count_committed_changes(client):
+    names = ["tbonk_tasks_created_total", "tbonk_tasks_updated_total",
+             "tbonk_tasks_completed_total", "tbonk_tasks_deleted_total"]
+    before = {name: REGISTRY.get_sample_value(name) for name in names}
+    created = client.post("/api/tasks", json={"title": "metrics"})
+    task_id = created.json["id"]
+    for status in ("done", "done", "todo", "done"):
+        assert client.put(f"/api/tasks/{task_id}", json={"title": "metrics", "status": status}).status_code == 200
+    assert client.post("/api/tasks", json={"title": "x" * 161}).status_code == 400
+    assert client.delete(f"/api/tasks/{task_id}").status_code == 204
+    assert client.delete(f"/api/tasks/{task_id}").status_code == 404
+    expected = [1, 4, 2, 1]
+    for name, delta in zip(names, expected):
+        assert REGISTRY.get_sample_value(name) - before[name] == delta
