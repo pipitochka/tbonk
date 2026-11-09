@@ -1,0 +1,4 @@
+_time:15m service.name:="tbonk-tasks" | sort by (_time) desc | limit 100
+_time:15m service.name:="tbonk-tasks" level:="warning"
+_time:15m service.name:="tbonk-tasks" | stats by (service.name, level) count() as events
+_time:15m service.name:="tbonk-tasks" event:="http_request" | top 5 by (http.route)

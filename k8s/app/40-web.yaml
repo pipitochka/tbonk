@@ -29,7 +29,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: web
-          image: tbonk-tasks:hw2
+          image: tbonk-tasks:hw3
           imagePullPolicy: Never
           ports:
             - name: http
