@@ -14,7 +14,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: init-db
-          image: tbonk-tasks:hw5
+          image: tbonk-tasks:hw6
           imagePullPolicy: Never
           command: ["python", "-m", "backend.manage", "init-db"]
           envFrom:
