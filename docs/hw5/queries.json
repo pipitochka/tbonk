@@ -1,0 +1,19 @@
+{
+  "availability": {
+    "expression": "sum(increase(tbonk_task_operations_total{app=\"tbonk\",outcome=\"success\"}[5m])) / sum(increase(tbonk_task_operations_total{app=\"tbonk\",outcome=~\"success|server_error\"}[5m]))",
+    "slo": 0.999,
+    "sla": 0.995
+  },
+  "latency": {
+    "expression": "sum(increase(tbonk_task_operation_duration_seconds_bucket{app=\"tbonk\",outcome=\"success\",le=\"0.5\"}[5m])) / sum(increase(tbonk_task_operation_duration_seconds_count{app=\"tbonk\",outcome=\"success\"}[5m]))",
+    "slo": 0.95
+  },
+  "create_success": {
+    "expression": "sum(increase(tbonk_tasks_created_total{app=\"tbonk\"}[5m])) / sum(increase(tbonk_task_operations_total{app=\"tbonk\",operation=\"create\",outcome=~\"success|server_error\"}[5m]))",
+    "slo": 0.995
+  },
+  "probe": {
+    "expression": "sum(increase(tbonk_probe_runs_total{app=\"tbonk-prober\",outcome=\"success\"}[5m])) / sum(increase(tbonk_probe_runs_total{app=\"tbonk-prober\"}[5m]))",
+    "slo": 0.999
+  }
+}

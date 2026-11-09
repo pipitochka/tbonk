@@ -8,7 +8,8 @@ import psycopg
 from flask import Flask, g, jsonify, request, send_from_directory
 
 from backend.logging_config import configure_logging
-from backend.metrics import COMPLETED, CREATED, DELETED, UPDATED, observe_request
+from backend.metrics import COMPLETED, CREATED, DELETED, UPDATED, ENDPOINT_OPERATIONS, observe_request
+from backend.demo import inject_fault
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,6 +22,8 @@ app = Flask(__name__, static_folder=str(BASE_DIR / "frontend"), static_url_path=
 def start_request():
     g.started_at = time.perf_counter()
     g.request_id = uuid.uuid4().hex
+    if request.endpoint in ENDPOINT_OPERATIONS and request.method not in ("HEAD", "OPTIONS"):
+        return inject_fault()
 
 
 @app.after_request
